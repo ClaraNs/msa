@@ -9,10 +9,12 @@ import java.sql.SQLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import java.sql.Connection;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.boot.CommandLineRunner;
+
 
 @SpringBootApplication
 @ComponentScan("com.projeto.config")
-public class DemoApplication {
+public class DemoApplication implements CommandLineRunner {
 
     @Autowired
     private DatabaseConfig databaseConfig;
@@ -20,6 +22,11 @@ public class DemoApplication {
     public static void main(String[] args) {
         SpringApplication.run(DemoApplication.class, args);
     }
+
+	@Override
+	public void run(String... args){
+		performDatabaseOperations();
+	}
 
     public void performDatabaseOperations() {
         String url = databaseConfig.getUrl();
@@ -56,6 +63,7 @@ public class DemoApplication {
             e.printStackTrace();
         }
     }
+
 }
 
 
